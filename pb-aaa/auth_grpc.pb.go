@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_CreateUser_FullMethodName          = "/pb.UserService/CreateUser"
+	UserService_RegisterUser_FullMethodName        = "/pb.UserService/RegisterUser"
 	UserService_Login_FullMethodName               = "/pb.UserService/Login"
 	UserService_GetUser_FullMethodName             = "/pb.UserService/GetUser"
 	UserService_UpdateUser_FullMethodName          = "/pb.UserService/UpdateUser"
@@ -27,14 +27,14 @@ const (
 	UserService_GetUserById_FullMethodName         = "/pb.UserService/GetUserById"
 	UserService_CheckUserPermission_FullMethodName = "/pb.UserService/CheckUserPermission"
 	UserService_ValidateUser_FullMethodName        = "/pb.UserService/ValidateUser"
-	UserService_AssignRoleToUser_FullMethodName    = "/pb.UserService/AssignRoleToUser"
+	UserService_AssignRole_FullMethodName          = "/pb.UserService/AssignRole"
 )
 
 // UserServiceClient is the client API for UserService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+	RegisterUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
@@ -42,7 +42,7 @@ type UserServiceClient interface {
 	GetUserById(ctx context.Context, in *GetUserByIdRequest, opts ...grpc.CallOption) (*GetUserByIdResponse, error)
 	CheckUserPermission(ctx context.Context, in *CheckPermissionRequest, opts ...grpc.CallOption) (*CheckPermissionResponse, error)
 	ValidateUser(ctx context.Context, in *ValidateUserRequest, opts ...grpc.CallOption) (*ValidateUserResponse, error)
-	AssignRoleToUser(ctx context.Context, in *AssignRoleToUserRequest, opts ...grpc.CallOption) (*AssignRoleToUserResponse, error)
+	AssignRole(ctx context.Context, in *AssignRoleToUserRequest, opts ...grpc.CallOption) (*AssignRoleToUserResponse, error)
 }
 
 type userServiceClient struct {
@@ -53,10 +53,10 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
+func (c *userServiceClient) RegisterUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateUserResponse)
-	err := c.cc.Invoke(ctx, UserService_CreateUser_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, UserService_RegisterUser_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -133,10 +133,10 @@ func (c *userServiceClient) ValidateUser(ctx context.Context, in *ValidateUserRe
 	return out, nil
 }
 
-func (c *userServiceClient) AssignRoleToUser(ctx context.Context, in *AssignRoleToUserRequest, opts ...grpc.CallOption) (*AssignRoleToUserResponse, error) {
+func (c *userServiceClient) AssignRole(ctx context.Context, in *AssignRoleToUserRequest, opts ...grpc.CallOption) (*AssignRoleToUserResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AssignRoleToUserResponse)
-	err := c.cc.Invoke(ctx, UserService_AssignRoleToUser_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, UserService_AssignRole_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +147,7 @@ func (c *userServiceClient) AssignRoleToUser(ctx context.Context, in *AssignRole
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
 type UserServiceServer interface {
-	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+	RegisterUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
@@ -155,7 +155,7 @@ type UserServiceServer interface {
 	GetUserById(context.Context, *GetUserByIdRequest) (*GetUserByIdResponse, error)
 	CheckUserPermission(context.Context, *CheckPermissionRequest) (*CheckPermissionResponse, error)
 	ValidateUser(context.Context, *ValidateUserRequest) (*ValidateUserResponse, error)
-	AssignRoleToUser(context.Context, *AssignRoleToUserRequest) (*AssignRoleToUserResponse, error)
+	AssignRole(context.Context, *AssignRoleToUserRequest) (*AssignRoleToUserResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -166,8 +166,8 @@ type UserServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedUserServiceServer struct{}
 
-func (UnimplementedUserServiceServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+func (UnimplementedUserServiceServer) RegisterUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterUser not implemented")
 }
 func (UnimplementedUserServiceServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
@@ -190,8 +190,8 @@ func (UnimplementedUserServiceServer) CheckUserPermission(context.Context, *Chec
 func (UnimplementedUserServiceServer) ValidateUser(context.Context, *ValidateUserRequest) (*ValidateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateUser not implemented")
 }
-func (UnimplementedUserServiceServer) AssignRoleToUser(context.Context, *AssignRoleToUserRequest) (*AssignRoleToUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AssignRoleToUser not implemented")
+func (UnimplementedUserServiceServer) AssignRole(context.Context, *AssignRoleToUserRequest) (*AssignRoleToUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AssignRole not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -214,20 +214,20 @@ func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
 	s.RegisterService(&UserService_ServiceDesc, srv)
 }
 
-func _UserService_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserService_RegisterUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).CreateUser(ctx, in)
+		return srv.(UserServiceServer).RegisterUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_CreateUser_FullMethodName,
+		FullMethod: UserService_RegisterUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).CreateUser(ctx, req.(*CreateUserRequest))
+		return srv.(UserServiceServer).RegisterUser(ctx, req.(*CreateUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -358,20 +358,20 @@ func _UserService_ValidateUser_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_AssignRoleToUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserService_AssignRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AssignRoleToUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).AssignRoleToUser(ctx, in)
+		return srv.(UserServiceServer).AssignRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_AssignRoleToUser_FullMethodName,
+		FullMethod: UserService_AssignRole_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).AssignRoleToUser(ctx, req.(*AssignRoleToUserRequest))
+		return srv.(UserServiceServer).AssignRole(ctx, req.(*AssignRoleToUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -384,8 +384,8 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateUser",
-			Handler:    _UserService_CreateUser_Handler,
+			MethodName: "RegisterUser",
+			Handler:    _UserService_RegisterUser_Handler,
 		},
 		{
 			MethodName: "Login",
@@ -416,8 +416,8 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_ValidateUser_Handler,
 		},
 		{
-			MethodName: "AssignRoleToUser",
-			Handler:    _UserService_AssignRoleToUser_Handler,
+			MethodName: "AssignRole",
+			Handler:    _UserService_AssignRole_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

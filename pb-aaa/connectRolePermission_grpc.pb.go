@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ConnectRolePermissionService_CreateConnectRolePermission_FullMethodName = "/pb.ConnectRolePermissionService/CreateConnectRolePermission"
+	ConnectRolePermissionService_AssignPermission_FullMethodName            = "/pb.ConnectRolePermissionService/AssignPermission"
 	ConnectRolePermissionService_GetAllRolePermission_FullMethodName        = "/pb.ConnectRolePermissionService/GetAllRolePermission"
 	ConnectRolePermissionService_GetRolePermissionById_FullMethodName       = "/pb.ConnectRolePermissionService/GetRolePermissionById"
 	ConnectRolePermissionService_UpdateRolePermission_FullMethodName        = "/pb.ConnectRolePermissionService/UpdateRolePermission"
@@ -31,7 +31,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ConnectRolePermissionServiceClient interface {
-	CreateConnectRolePermission(ctx context.Context, in *CreateConnRolePermissionRequest, opts ...grpc.CallOption) (*CreateConnRolePermissionResponse, error)
+	AssignPermission(ctx context.Context, in *CreateConnRolePermissionRequest, opts ...grpc.CallOption) (*CreateConnRolePermissionResponse, error)
 	GetAllRolePermission(ctx context.Context, in *GetConnRolePermissionallRequest, opts ...grpc.CallOption) (*GetConnRolePermissionallResponse, error)
 	GetRolePermissionById(ctx context.Context, in *GetConnRolePermissionByIdRequest, opts ...grpc.CallOption) (*GetConnRolePermissionByIdResponse, error)
 	UpdateRolePermission(ctx context.Context, in *UpdateConnRolePermissionRequest, opts ...grpc.CallOption) (*UpdateConnRolePermissionResponse, error)
@@ -47,10 +47,10 @@ func NewConnectRolePermissionServiceClient(cc grpc.ClientConnInterface) ConnectR
 	return &connectRolePermissionServiceClient{cc}
 }
 
-func (c *connectRolePermissionServiceClient) CreateConnectRolePermission(ctx context.Context, in *CreateConnRolePermissionRequest, opts ...grpc.CallOption) (*CreateConnRolePermissionResponse, error) {
+func (c *connectRolePermissionServiceClient) AssignPermission(ctx context.Context, in *CreateConnRolePermissionRequest, opts ...grpc.CallOption) (*CreateConnRolePermissionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateConnRolePermissionResponse)
-	err := c.cc.Invoke(ctx, ConnectRolePermissionService_CreateConnectRolePermission_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, ConnectRolePermissionService_AssignPermission_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -111,7 +111,7 @@ func (c *connectRolePermissionServiceClient) GetRolePermissionByRoleName(ctx con
 // All implementations must embed UnimplementedConnectRolePermissionServiceServer
 // for forward compatibility.
 type ConnectRolePermissionServiceServer interface {
-	CreateConnectRolePermission(context.Context, *CreateConnRolePermissionRequest) (*CreateConnRolePermissionResponse, error)
+	AssignPermission(context.Context, *CreateConnRolePermissionRequest) (*CreateConnRolePermissionResponse, error)
 	GetAllRolePermission(context.Context, *GetConnRolePermissionallRequest) (*GetConnRolePermissionallResponse, error)
 	GetRolePermissionById(context.Context, *GetConnRolePermissionByIdRequest) (*GetConnRolePermissionByIdResponse, error)
 	UpdateRolePermission(context.Context, *UpdateConnRolePermissionRequest) (*UpdateConnRolePermissionResponse, error)
@@ -127,8 +127,8 @@ type ConnectRolePermissionServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedConnectRolePermissionServiceServer struct{}
 
-func (UnimplementedConnectRolePermissionServiceServer) CreateConnectRolePermission(context.Context, *CreateConnRolePermissionRequest) (*CreateConnRolePermissionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateConnectRolePermission not implemented")
+func (UnimplementedConnectRolePermissionServiceServer) AssignPermission(context.Context, *CreateConnRolePermissionRequest) (*CreateConnRolePermissionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AssignPermission not implemented")
 }
 func (UnimplementedConnectRolePermissionServiceServer) GetAllRolePermission(context.Context, *GetConnRolePermissionallRequest) (*GetConnRolePermissionallResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllRolePermission not implemented")
@@ -167,20 +167,20 @@ func RegisterConnectRolePermissionServiceServer(s grpc.ServiceRegistrar, srv Con
 	s.RegisterService(&ConnectRolePermissionService_ServiceDesc, srv)
 }
 
-func _ConnectRolePermissionService_CreateConnectRolePermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _ConnectRolePermissionService_AssignPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateConnRolePermissionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ConnectRolePermissionServiceServer).CreateConnectRolePermission(ctx, in)
+		return srv.(ConnectRolePermissionServiceServer).AssignPermission(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ConnectRolePermissionService_CreateConnectRolePermission_FullMethodName,
+		FullMethod: ConnectRolePermissionService_AssignPermission_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConnectRolePermissionServiceServer).CreateConnectRolePermission(ctx, req.(*CreateConnRolePermissionRequest))
+		return srv.(ConnectRolePermissionServiceServer).AssignPermission(ctx, req.(*CreateConnRolePermissionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -283,8 +283,8 @@ var ConnectRolePermissionService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ConnectRolePermissionServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateConnectRolePermission",
-			Handler:    _ConnectRolePermissionService_CreateConnectRolePermission_Handler,
+			MethodName: "AssignPermission",
+			Handler:    _ConnectRolePermissionService_AssignPermission_Handler,
 		},
 		{
 			MethodName: "GetAllRolePermission",

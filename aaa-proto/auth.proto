@@ -34,9 +34,10 @@ message User {
     string share_code = 15;
     string year_of_birth = 16;
     string message = 17;
-    string mobile_number = 18;
-    Address address = 19;
-    UserRoleResponse usage_right = 20; // Updated to use UserRoleResponse
+    uint64 mobile_number = 18;
+    string country_code = 19;
+    Address address = 20;
+    UserRoleResponse usage_right = 21; // Updated to use UserRoleResponse
 
 }
 
@@ -69,23 +70,20 @@ message LoginResponse {
     string refresh_token = 4;
     User user = 5;
 }
-
 message CreateUserRequest {
     string username = 1;
     string password = 2;
     string aadhaar_number = 3;
-    string name = 5;
-    string care_of = 6;
-    string full_address = 7;
-    string date_of_birth = 8;
-    string year_of_birth = 12;
-    string mobile_number = 13;
+    string country_code = 4;
+    uint64 mobile_number = 5; 
 }
 
 message CreateUserResponse {
     int32 status_code = 1;
     string message = 2;
     User user = 3;
+    string token = 4;
+    string refresh_token = 5;
 }
 
 message GetUserRequest {}
@@ -178,7 +176,7 @@ message CheckPermissionResponse {
 }
 message AssignRoleToUserRequest {
     string userId = 1;
-    repeated string roles = 2;
+    string role = 2;
 }
 
 message AssignRoleToUserResponse {
@@ -188,7 +186,7 @@ message AssignRoleToUserResponse {
 }
 
 service UserService {
-    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+    rpc RegisterUser(CreateUserRequest) returns (CreateUserResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
@@ -196,5 +194,5 @@ service UserService {
     rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
     rpc CheckUserPermission(CheckPermissionRequest) returns (CheckPermissionResponse);
     rpc ValidateUser(ValidateUserRequest) returns (ValidateUserResponse);
-    rpc AssignRoleToUser(AssignRoleToUserRequest) returns (AssignRoleToUserResponse);
+    rpc AssignRole(AssignRoleToUserRequest) returns (AssignRoleToUserResponse);
 }

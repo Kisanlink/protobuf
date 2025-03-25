@@ -76,7 +76,7 @@ message ConnUserRole {
     string role_permission_id = 5;
 }
 message CreateConnRolePermissionRequest {
-    repeated string roles = 1;
+     string roles = 1;
     repeated string permissions = 2;
 }
 
@@ -135,7 +135,7 @@ message GetRolePermissionByRoleNameResponse {
   ConnRolePermission data = 3; // Role-permission connection details
 }
 service ConnectRolePermissionService {
-    rpc CreateConnectRolePermission(CreateConnRolePermissionRequest) returns (CreateConnRolePermissionResponse);
+    rpc AssignPermission(CreateConnRolePermissionRequest) returns (CreateConnRolePermissionResponse);
     rpc GetAllRolePermission(GetConnRolePermissionallRequest) returns (GetConnRolePermissionallResponse);
     rpc GetRolePermissionById(GetConnRolePermissionByIdRequest) returns (GetConnRolePermissionByIdResponse);
     rpc UpdateRolePermission(UpdateConnRolePermissionRequest) returns (UpdateConnRolePermissionResponse);
