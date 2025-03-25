@@ -82,7 +82,7 @@ message AadhaarOTPResponse {
     string transaction_id = 2;
     string entity = 3;
     string otp_message = 4;
-    int64 reference_id = 5;
+    string reference_id = 5;
     int32 status_code = 6;
 }
 message MinimalUser {
