@@ -66,8 +66,6 @@ message LoginRequest {
 message LoginResponse {
     int32 status_code = 1;
     string message = 2;
-    string token = 3;
-    string refresh_token = 4;
     User user = 5;
 }
 message CreateUserRequest {
@@ -90,8 +88,11 @@ message MinimalUser {
     string username = 2;
     string password = 3;
     bool is_validated = 4;
-    string created_at = 5;
-    string updated_at = 6;
+    string country_code = 5;
+    uint64 mobile_number = 6; 
+    string created_at = 7;
+    string updated_at = 8;
+
 }
 message CreateUserResponse {
     int32 status_code = 1;
