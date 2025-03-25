@@ -77,13 +77,19 @@ message CreateUserRequest {
     string country_code = 4;
     uint64 mobile_number = 5; 
 }
-
+message AadhaarOTPResponse {
+    int64 timestamp = 1;
+    string transaction_id = 2;
+    string entity = 3;
+    string otp_message = 4;
+    int64 reference_id = 5;
+    int32 status_code = 6;
+}
 message CreateUserResponse {
     int32 status_code = 1;
     string message = 2;
     User user = 3;
-    string token = 4;
-    string refresh_token = 5;
+    AadhaarOTPResponse response = 4;
 }
 
 message GetUserRequest {}
