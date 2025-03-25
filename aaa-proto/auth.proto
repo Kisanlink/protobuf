@@ -85,10 +85,18 @@ message AadhaarOTPResponse {
     int64 reference_id = 5;
     int32 status_code = 6;
 }
+message MinimalUser {
+    string id = 1;
+    string username = 2;
+    string password = 3;
+    bool is_validated = 4;
+    string created_at = 5;
+    string updated_at = 6;
+}
 message CreateUserResponse {
     int32 status_code = 1;
     string message = 2;
-    User user = 3;
+    MinimalUser user = 3;
     AadhaarOTPResponse response = 4;
 }
 
