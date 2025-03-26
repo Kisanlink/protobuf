@@ -123,6 +123,7 @@ message UpdatePermissionRequest {
     string action = 3; 
     string source = 4; 
     string resource = 5; 
+    string id= 6;
 }
 
 message UpdatePermissionResponse {
