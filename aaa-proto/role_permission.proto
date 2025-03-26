@@ -118,7 +118,11 @@ message GetPermissionByIdResponse {
 }
 
 message UpdatePermissionRequest {
-    Permission permission = 1;
+    string name = 1;        
+    string description = 2; 
+    string action = 3; 
+    string source = 4; 
+    string resource = 5; 
 }
 
 message UpdatePermissionResponse {
