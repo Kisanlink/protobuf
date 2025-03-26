@@ -25,7 +25,7 @@ message User {
     bool is_validated = 4;
     string created_at = 5;
     string updated_at = 6;
-    repeated UserRole user_roles = 7;
+    // repeated UserRole user_roles = 7;
     string aadhaar_number = 8;
     string status = 9;
     string name = 10;
@@ -175,8 +175,9 @@ message ValidateUserRequest {
     string share_code = 10;
     string year_of_birth = 11;
     string message = 12;
-    string mobile_number = 13;
+    uint64 mobile_number = 13;
     Address address = 14;
+    string country_code = 15;
 }
 
 message ValidateUserResponse {
