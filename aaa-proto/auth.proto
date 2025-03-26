@@ -130,7 +130,7 @@ message UpdateUserRequest {
     string share_code = 10;
     string year_of_birth = 11;
     string message = 12;
-    string mobile_number = 13;
+    uint64 mobile_number = 13;
     Address address = 14;
 }
 
