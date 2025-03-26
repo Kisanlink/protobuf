@@ -63,7 +63,7 @@ message ConnRolePermissionResponse {
     string created_at = 2;
     string updated_at = 3;
     ConnRole role = 4;
-    repeated ConnPermission permission = 5;
+    repeated ConnPermission permissions = 5;
     bool is_active = 7; 
 }
 
