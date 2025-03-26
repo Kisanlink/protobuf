@@ -197,9 +197,9 @@ message CheckPermissionResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    map<string, bool> roles = 4;
-    map<string, bool> permissions = 5;
-    map<string, bool> actions = 6;
+    // map<string, bool> roles = 4;
+    map<string, bool> permissions = 4;
+    map<string, bool> actions = 5;
 }
 
 message AssignRoleToUserRequest {
