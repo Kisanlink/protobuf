@@ -11,11 +11,13 @@ message UserRole {
     string created_at = 4;
     string updated_at = 5;
 }
+
 message UserRoleResponse {
     repeated string roles = 1;
     repeated string permissions = 2;
     repeated string actions = 3;
 }
+
 message User {
     string id = 1;
     string username = 2;
@@ -37,8 +39,7 @@ message User {
     uint64 mobile_number = 18;
     string country_code = 19;
     Address address = 20;
-    UserRoleResponse usage_right = 21; // Updated to use UserRoleResponse
-
+    UserRoleResponse usage_right = 21;
 }
 
 message Address {
@@ -66,8 +67,10 @@ message LoginRequest {
 message LoginResponse {
     int32 status_code = 1;
     string message = 2;
-    User user = 5;
+    bool success = 3;
+    User user = 4;
 }
+
 message CreateUserRequest {
     string username = 1;
     string password = 2;
@@ -75,6 +78,7 @@ message CreateUserRequest {
     string country_code = 4;
     uint64 mobile_number = 5; 
 }
+
 message AadhaarOTPResponse {
     int64 timestamp = 1;
     string transaction_id = 2;
@@ -82,7 +86,9 @@ message AadhaarOTPResponse {
     string otp_message = 4;
     string reference_id = 5;
     int32 status_code = 6;
+    bool success = 7;
 }
+
 message MinimalUser {
     string id = 1;
     string username = 2;
@@ -92,13 +98,14 @@ message MinimalUser {
     uint64 mobile_number = 6; 
     string created_at = 7;
     string updated_at = 8;
-
 }
+
 message CreateUserResponse {
     int32 status_code = 1;
     string message = 2;
-    MinimalUser user = 3;
-    AadhaarOTPResponse response = 4;
+    bool success = 3;
+    MinimalUser user = 4;
+    AadhaarOTPResponse response = 5;
 }
 
 message GetUserRequest {}
@@ -106,10 +113,9 @@ message GetUserRequest {}
 message GetUserResponse {
     int32 status_code = 1;
     string message = 2;
-    repeated User users = 3;
+    bool success = 3;
+    repeated User users = 4;
 }
-
-
 
 message UpdateUserRequest {
     string id = 1;
@@ -131,7 +137,8 @@ message UpdateUserRequest {
 message UpdateUserResponse {
     int32 status_code = 1;
     string message = 2;
-    User user = 3;
+    bool success = 3;
+    User user = 4;
 }
 
 message DeleteUserRequest {
@@ -141,6 +148,7 @@ message DeleteUserRequest {
 message DeleteUserResponse {
     int32 status_code = 1;
     string message = 2;
+    bool success = 3;
 }
 
 message GetUserByIdRequest {
@@ -150,7 +158,8 @@ message GetUserByIdRequest {
 message GetUserByIdResponse {
     int32 status_code = 1;
     string message = 2;
-    User user = 3;
+    bool success = 3;
+    User user = 4;
 }
 
 message ValidateUserRequest {
@@ -173,7 +182,8 @@ message ValidateUserRequest {
 message ValidateUserResponse {
     int32 status_code = 1;
     string message = 2;
-    User user = 3;
+    bool success = 3;
+    User user = 4;
 }
 
 message CheckPermissionRequest {
@@ -183,21 +193,24 @@ message CheckPermissionRequest {
 }
 
 message CheckPermissionResponse {
-    int32 statusCode = 1;
+    int32 status_code = 1;
     string message = 2;
-    map<string, bool> roles = 3;
-    map<string, bool> permissions = 4;
-    map<string, bool> actions = 5;
+    bool success = 3;
+    map<string, bool> roles = 4;
+    map<string, bool> permissions = 5;
+    map<string, bool> actions = 6;
 }
+
 message AssignRoleToUserRequest {
     string userId = 1;
     string role = 2;
 }
 
 message AssignRoleToUserResponse {
-    int32 statusCode = 1;
+    int32 status_code = 1;
     string message = 2;
-    User user = 3;
+    bool success = 3;
+    User user = 4;
 }
 
 service UserService {
