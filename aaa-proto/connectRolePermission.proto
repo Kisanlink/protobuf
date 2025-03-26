@@ -42,7 +42,9 @@ message ConnPermission {
     string source = 5; 
     string resource = 6; 
     string valid_start_time = 7;
-    string valied_end_time = 8;
+    string valid_end_time = 8;
+    string created_at = 9;
+    string updated_at = 10;
 }
 
 message ConnRolePermission {
