@@ -55,7 +55,7 @@ message ConnRolePermission {
     ConnRole role = 5;
     string permission_id = 6;
     repeated ConnPermission permission = 7;
-    repeated ConnUserRole user_roles = 8;
+    // repeated ConnUserRole user_roles = 8;
     bool is_active = 9; 
 }
 message ConnRolePermissionResponse {
@@ -75,7 +75,7 @@ message RolePermissionConn {
     ConnRole role = 5;
     string permission_id = 6;
     ConnPermission permission = 7;
-    repeated ConnUserRole user_roles = 8;
+    // repeated ConnUserRole user_roles = 8;
     bool is_active = 9; 
 }
 
@@ -84,7 +84,7 @@ message ConnUserRole {
     string created_at = 2;
     string updated_at = 3;
     ConnUser user = 4;
-    string role_permission_id = 5;
+    string role_id = 5;
 }
 
 message CreateConnRolePermissionRequest {

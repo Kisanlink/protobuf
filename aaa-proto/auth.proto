@@ -7,7 +7,7 @@ option go_package = "github.com/kisanlink/protobuf/pb";
 message UserRole {
     string id = 1;
     string user_id = 2;
-    string role_permission_id = 3;
+    string role_id = 3;
     string created_at = 4;
     string updated_at = 5;
 }
