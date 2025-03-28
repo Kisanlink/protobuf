@@ -60,7 +60,7 @@ message User {
 
 message Address {
     string id = 1;
-    string plot = 2;
+    string house = 2;
     string street = 3;
     string landmark = 4;
     string post_office = 5;
