@@ -68,7 +68,7 @@ message LoginResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    User user = 4;
+    User data = 4;
 }
 
 message CreateUserRequest {
@@ -98,14 +98,16 @@ message MinimalUser {
     uint64 mobile_number = 6; 
     string created_at = 7;
     string updated_at = 8;
+    AadhaarOTPResponse otp_response = 9;
+
 }
 
 message CreateUserResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    MinimalUser user = 4;
-    AadhaarOTPResponse response = 5;
+    MinimalUser data = 4;
+    string data_time_stamp =5;
 }
 
 message GetUserRequest {}
@@ -114,7 +116,9 @@ message GetUserResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    repeated User users = 4;
+    repeated User data = 4;
+    string data_time_stamp =5;
+
 }
 
 message UpdateUserRequest {
@@ -138,7 +142,8 @@ message UpdateUserResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    User user = 4;
+    User data = 4;
+    string data_time_stamp =5;
 }
 
 message DeleteUserRequest {
@@ -149,6 +154,7 @@ message DeleteUserResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
+    string data_time_stamp = 4;
 }
 
 message GetUserByIdRequest {
@@ -159,7 +165,8 @@ message GetUserByIdResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    User user = 4;
+    User data = 4;
+    string data_time_stamp =5;
 }
 
 message ValidateUserRequest {
@@ -184,7 +191,8 @@ message ValidateUserResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    User user = 4;
+    User data = 4;
+    string data_time_stamp =5;
 }
 
 message CheckPermissionRequest {
@@ -200,6 +208,8 @@ message CheckPermissionResponse {
     // map<string, bool> roles = 4;
     map<string, bool> permissions = 4;
     map<string, bool> actions = 5;
+    string data_time_stamp = 6;
+
 }
 
 message AssignRoleToUserRequest {
@@ -211,7 +221,9 @@ message AssignRoleToUserResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    User user = 4;
+    User data = 4;
+    string data_time_stamp =5;
+
 }
 
 service UserService {

@@ -37,8 +37,10 @@ message CreateRoleRequest {
 message CreateRoleResponse {
     int32 status_code = 1;  
     string message = 2;     
-    Role role = 3;
-    bool success = 4;      
+    Role data = 3;
+    bool success = 4;    
+    string data_time_stamp =5;
+  
 }
 
 message GetAllRolesRequest {}
@@ -46,8 +48,10 @@ message GetAllRolesRequest {}
 message GetAllRolesResponse {
     int32 status_code = 1;  
     string message = 2;    
-    repeated Role roles = 3; 
-    bool success = 4;      
+    repeated Role data = 3; 
+    bool success = 4;  
+    string data_time_stamp =5;
+    
 }
 
 message GetRoleByIdRequest {
@@ -57,8 +61,10 @@ message GetRoleByIdRequest {
 message GetRoleByIdResponse {
     int32 status_code = 1; 
     string message = 2;    
-    Role role = 3;         
-    bool success = 4;      
+    Role data = 3;         
+    bool success = 4;
+    string data_time_stamp =5;
+      
 }
 
 message UpdateRoleRequest {
@@ -71,8 +77,10 @@ message UpdateRoleRequest {
 message UpdateRoleResponse {
     int32 status_code = 1;  
     string message = 2;    
-    Role role = 3;          
-    bool success = 4;      
+    Role data = 3;          
+    bool success = 4; 
+    string data_time_stamp = 5;
+     
 }
 
 message DeleteRoleRequest {
@@ -82,7 +90,9 @@ message DeleteRoleRequest {
 message DeleteRoleResponse {
     int32 status_code = 1;  
     string message = 2;    
-    bool success = 3;      
+    bool success = 3; 
+    string data_time_stamp = 4;
+     
 }
 
 message CreatePermissionRequest {
@@ -96,8 +106,10 @@ message CreatePermissionRequest {
 message CreatePermissionResponse {
     int32 status_code = 1;  
     string message = 2;     
-    Permission permission = 3; 
-    bool success = 4;      
+    Permission data = 3; 
+    bool success = 4;  
+    string data_time_stamp =5;
+    
 }
 
 message GetAllPermissionsRequest {}
@@ -105,8 +117,10 @@ message GetAllPermissionsRequest {}
 message GetAllPermissionsResponse {
     int32 status_code = 1; 
     string message = 2;     
-    repeated Permission permissions = 3; 
-    bool success = 4;      
+    repeated Permission data = 3; 
+    bool success = 4;   
+    string data_time_stamp =5;
+   
 }
 
 message GetPermissionByIdRequest {
@@ -116,8 +130,10 @@ message GetPermissionByIdRequest {
 message GetPermissionByIdResponse {
     int32 status_code = 1;  
     string message = 2;   
-    Permission permission = 3; 
-    bool success = 4;      
+    Permission data = 3; 
+    bool success = 4;
+    string data_time_stamp =5;
+      
 }
 
 message UpdatePermissionRequest {
@@ -132,8 +148,10 @@ message UpdatePermissionRequest {
 message UpdatePermissionResponse {
     int32 status_code = 1; 
     string message = 2;    
-    Permission permission = 3; 
-    bool success = 4;      
+    Permission data = 3; 
+    bool success = 4; 
+    string data_time_stamp =5;
+     
 }
 
 message DeletePermissionRequest {
@@ -143,7 +161,9 @@ message DeletePermissionRequest {
 message DeletePermissionResponse {
     int32 status_code = 1;  
     string message = 2;   
-    bool success = 3;      
+    bool success = 3;
+    string data_time_stamp =4;
+      
 }
 
 service RoleService {

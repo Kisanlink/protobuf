@@ -88,7 +88,7 @@ message ConnUserRole {
 }
 
 message CreateConnRolePermissionRequest {
-    string roles = 1;
+    string role = 1;
     repeated string permissions = 2;
 }
 
@@ -96,7 +96,9 @@ message CreateConnRolePermissionResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    repeated ConnRolePermission data = 4;
+    repeated ConnRolePermissionResponse data = 4;
+    string data_time_stamp =5;
+
 }
 
 message GetConnRolePermissionallRequest {}
@@ -106,6 +108,8 @@ message GetConnRolePermissionallResponse {
     string message = 2;
     bool success = 3;
     repeated ConnRolePermissionResponse data = 4;
+    string data_time_stamp =5;
+
 }
 
 message GetConnRolePermissionByIdRequest {
@@ -116,12 +120,14 @@ message GetConnRolePermissionByIdResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    RolePermissionConn data = 4;
+    ConnRolePermissionResponse data = 4;
+    string data_time_stamp =5;
+
 }
 
 message UpdateConnRolePermissionRequest {
     string id = 1;
-    string roles = 2;
+    string role = 2;
     repeated string permissions = 3;
 }
 
@@ -129,7 +135,9 @@ message UpdateConnRolePermissionResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    repeated ConnRolePermission data = 4;
+    repeated ConnRolePermissionResponse data = 4;
+    string data_time_stamp =5;
+
 }
 
 message DeleteConnRolePermissionRequest {
@@ -140,6 +148,8 @@ message DeleteConnRolePermissionResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
+    string data_time_stamp = 4;
+
 }
 
 message GetRolePermissionByRoleNameRequest {
@@ -151,6 +161,8 @@ message GetRolePermissionByRoleNameResponse {
     string message = 2;
     bool success = 3;
     ConnRolePermissionResponse data = 4;
+    string data_time_stamp =5;
+
 }
 
 service ConnectRolePermissionService {
