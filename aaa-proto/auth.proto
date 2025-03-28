@@ -84,7 +84,7 @@ message LoginResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    MinimalUser data = 4;
+    AssignRolePermission data = 4;
     string data_time_stamp =5;
 }
 
