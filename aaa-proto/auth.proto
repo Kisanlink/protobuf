@@ -24,6 +24,16 @@ message UserRoleResponse {
     repeated PermissionResponse permissions = 2;
 }
 
+message AssignRolePermission {
+    string id = 1;
+    string username = 2;
+    string password = 3;
+    bool is_validated = 4;
+    string created_at = 5;
+    string updated_at = 6;
+    UserRoleResponse usage_right = 21;
+
+}
 message User {
     string id = 1;
     string username = 2;
@@ -228,7 +238,7 @@ message AssignRoleToUserResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    User data = 4;
+    AssignRolePermission data = 4;
     string data_time_stamp =5;
 
 }
