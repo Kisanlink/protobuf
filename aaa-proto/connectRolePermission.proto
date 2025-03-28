@@ -96,7 +96,7 @@ message CreateConnRolePermissionResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    repeated ConnRolePermissionResponse data = 4;
+    ConnRolePermissionResponse data = 4;
     string data_time_stamp =5;
 
 }
@@ -135,7 +135,7 @@ message UpdateConnRolePermissionResponse {
     int32 status_code = 1;
     string message = 2;
     bool success = 3;
-    repeated ConnRolePermissionResponse data = 4;
+    ConnRolePermissionResponse data = 4;
     string data_time_stamp =5;
 
 }

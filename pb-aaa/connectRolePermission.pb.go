@@ -824,12 +824,12 @@ func (x *CreateConnRolePermissionRequest) GetPermissions() []string {
 }
 
 type CreateConnRolePermissionResponse struct {
-	state         protoimpl.MessageState        `protogen:"open.v1"`
-	StatusCode    int32                         `protobuf:"varint,1,opt,name=status_code,json=statusCode,proto3" json:"status_code,omitempty"`
-	Message       string                        `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	Success       bool                          `protobuf:"varint,3,opt,name=success,proto3" json:"success,omitempty"`
-	Data          []*ConnRolePermissionResponse `protobuf:"bytes,4,rep,name=data,proto3" json:"data,omitempty"`
-	DataTimeStamp string                        `protobuf:"bytes,5,opt,name=data_time_stamp,json=dataTimeStamp,proto3" json:"data_time_stamp,omitempty"`
+	state         protoimpl.MessageState      `protogen:"open.v1"`
+	StatusCode    int32                       `protobuf:"varint,1,opt,name=status_code,json=statusCode,proto3" json:"status_code,omitempty"`
+	Message       string                      `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	Success       bool                        `protobuf:"varint,3,opt,name=success,proto3" json:"success,omitempty"`
+	Data          *ConnRolePermissionResponse `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
+	DataTimeStamp string                      `protobuf:"bytes,5,opt,name=data_time_stamp,json=dataTimeStamp,proto3" json:"data_time_stamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -885,7 +885,7 @@ func (x *CreateConnRolePermissionResponse) GetSuccess() bool {
 	return false
 }
 
-func (x *CreateConnRolePermissionResponse) GetData() []*ConnRolePermissionResponse {
+func (x *CreateConnRolePermissionResponse) GetData() *ConnRolePermissionResponse {
 	if x != nil {
 		return x.Data
 	}
@@ -1192,12 +1192,12 @@ func (x *UpdateConnRolePermissionRequest) GetPermissions() []string {
 }
 
 type UpdateConnRolePermissionResponse struct {
-	state         protoimpl.MessageState        `protogen:"open.v1"`
-	StatusCode    int32                         `protobuf:"varint,1,opt,name=status_code,json=statusCode,proto3" json:"status_code,omitempty"`
-	Message       string                        `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	Success       bool                          `protobuf:"varint,3,opt,name=success,proto3" json:"success,omitempty"`
-	Data          []*ConnRolePermissionResponse `protobuf:"bytes,4,rep,name=data,proto3" json:"data,omitempty"`
-	DataTimeStamp string                        `protobuf:"bytes,5,opt,name=data_time_stamp,json=dataTimeStamp,proto3" json:"data_time_stamp,omitempty"`
+	state         protoimpl.MessageState      `protogen:"open.v1"`
+	StatusCode    int32                       `protobuf:"varint,1,opt,name=status_code,json=statusCode,proto3" json:"status_code,omitempty"`
+	Message       string                      `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	Success       bool                        `protobuf:"varint,3,opt,name=success,proto3" json:"success,omitempty"`
+	Data          *ConnRolePermissionResponse `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
+	DataTimeStamp string                      `protobuf:"bytes,5,opt,name=data_time_stamp,json=dataTimeStamp,proto3" json:"data_time_stamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1253,7 +1253,7 @@ func (x *UpdateConnRolePermissionResponse) GetSuccess() bool {
 	return false
 }
 
-func (x *UpdateConnRolePermissionResponse) GetData() []*ConnRolePermissionResponse {
+func (x *UpdateConnRolePermissionResponse) GetData() *ConnRolePermissionResponse {
 	if x != nil {
 		return x.Data
 	}
@@ -1642,7 +1642,7 @@ var file_connectRolePermission_proto_rawDesc = string([]byte{
 	0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
 	0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x75, 0x63,
 	0x63, 0x65, 0x73, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x73, 0x75, 0x63, 0x63,
-	0x65, 0x73, 0x73, 0x12, 0x32, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x04, 0x20, 0x03, 0x28,
+	0x65, 0x73, 0x73, 0x12, 0x32, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x04, 0x20, 0x01, 0x28,
 	0x0b, 0x32, 0x1e, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x6f, 0x6e, 0x6e, 0x52, 0x6f, 0x6c, 0x65, 0x50,
 	0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
 	0x65, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x26, 0x0a, 0x0f, 0x64, 0x61, 0x74, 0x61, 0x5f,
@@ -1695,7 +1695,7 @@ var file_connectRolePermission_proto_rawDesc = string([]byte{
 	0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x12, 0x18, 0x0a, 0x07,
 	0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x73,
 	0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x12, 0x32, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x04,
-	0x20, 0x03, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x6f, 0x6e, 0x6e, 0x52, 0x6f,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x6f, 0x6e, 0x6e, 0x52, 0x6f,
 	0x6c, 0x65, 0x50, 0x65, 0x72, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70,
 	0x6f, 0x6e, 0x73, 0x65, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x12, 0x26, 0x0a, 0x0f, 0x64, 0x61,
 	0x74, 0x61, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x18, 0x05, 0x20,
