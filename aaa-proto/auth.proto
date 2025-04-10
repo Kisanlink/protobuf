@@ -243,6 +243,17 @@ message AssignRoleToUserResponse {
 
 }
 
+message CheckAadhaarExistRequest {
+    string aadhaar_number= 1;
+}
+message CheckAadhaarExistResponse {
+    int32 status_code = 1;
+    string message = 2;
+    bool  isExist= 3;
+}
+
+
+
 service UserService {
     rpc RegisterUser(CreateUserRequest) returns (CreateUserResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
@@ -253,4 +264,5 @@ service UserService {
     rpc CheckUserPermission(CheckPermissionRequest) returns (CheckPermissionResponse);
     rpc ValidateUser(ValidateUserRequest) returns (ValidateUserResponse);
     rpc AssignRole(AssignRoleToUserRequest) returns (AssignRoleToUserResponse);
+    rpc CheckAadhaarExist(CheckAadhaarExistRequest) returns (CheckAadhaarExistResponse);
 }
