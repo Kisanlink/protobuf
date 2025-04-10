@@ -28,6 +28,7 @@ const (
 	UserService_CheckUserPermission_FullMethodName = "/pb.UserService/CheckUserPermission"
 	UserService_ValidateUser_FullMethodName        = "/pb.UserService/ValidateUser"
 	UserService_AssignRole_FullMethodName          = "/pb.UserService/AssignRole"
+	UserService_CheckAadhaarExist_FullMethodName   = "/pb.UserService/CheckAadhaarExist"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -43,6 +44,7 @@ type UserServiceClient interface {
 	CheckUserPermission(ctx context.Context, in *CheckPermissionRequest, opts ...grpc.CallOption) (*CheckPermissionResponse, error)
 	ValidateUser(ctx context.Context, in *ValidateUserRequest, opts ...grpc.CallOption) (*ValidateUserResponse, error)
 	AssignRole(ctx context.Context, in *AssignRoleToUserRequest, opts ...grpc.CallOption) (*AssignRoleToUserResponse, error)
+	CheckAadhaarExist(ctx context.Context, in *CheckAadhaarExistRequest, opts ...grpc.CallOption) (*CheckAadhaarExistResponse, error)
 }
 
 type userServiceClient struct {
@@ -143,6 +145,16 @@ func (c *userServiceClient) AssignRole(ctx context.Context, in *AssignRoleToUser
 	return out, nil
 }
 
+func (c *userServiceClient) CheckAadhaarExist(ctx context.Context, in *CheckAadhaarExistRequest, opts ...grpc.CallOption) (*CheckAadhaarExistResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CheckAadhaarExistResponse)
+	err := c.cc.Invoke(ctx, UserService_CheckAadhaarExist_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -156,6 +168,7 @@ type UserServiceServer interface {
 	CheckUserPermission(context.Context, *CheckPermissionRequest) (*CheckPermissionResponse, error)
 	ValidateUser(context.Context, *ValidateUserRequest) (*ValidateUserResponse, error)
 	AssignRole(context.Context, *AssignRoleToUserRequest) (*AssignRoleToUserResponse, error)
+	CheckAadhaarExist(context.Context, *CheckAadhaarExistRequest) (*CheckAadhaarExistResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -192,6 +205,9 @@ func (UnimplementedUserServiceServer) ValidateUser(context.Context, *ValidateUse
 }
 func (UnimplementedUserServiceServer) AssignRole(context.Context, *AssignRoleToUserRequest) (*AssignRoleToUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AssignRole not implemented")
+}
+func (UnimplementedUserServiceServer) CheckAadhaarExist(context.Context, *CheckAadhaarExistRequest) (*CheckAadhaarExistResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckAadhaarExist not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -376,6 +392,24 @@ func _UserService_AssignRole_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_CheckAadhaarExist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckAadhaarExistRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).CheckAadhaarExist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_CheckAadhaarExist_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).CheckAadhaarExist(ctx, req.(*CheckAadhaarExistRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -418,6 +452,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AssignRole",
 			Handler:    _UserService_AssignRole_Handler,
+		},
+		{
+			MethodName: "CheckAadhaarExist",
+			Handler:    _UserService_CheckAadhaarExist_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
