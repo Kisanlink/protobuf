@@ -12,11 +12,11 @@ message UserRole {
     string updated_at = 5;
 }
 message PermissionResponse {
-    string name = 2;       
-    string description = 3;
-    string action = 4; 
-    string source = 5; 
-    string resource = 6; 
+    string name = 1;  // Changed to start from 1 (standard practice)      
+    string description = 2;
+    string action = 3; 
+    string source = 4; 
+    string resource = 5; 
 }
 
 message RolePermissions {
@@ -33,7 +33,7 @@ message AssignRolePermission {
     bool is_validated = 4;
     string created_at = 5;
     string updated_at = 6;
-    RolePermissionMap role_permissions = 21;
+    RolePermissionMap role_permissions = 7;  // Changed to field number 7
 
 }
 message User {
@@ -87,7 +87,7 @@ message LoginResponse {
     string message = 2;
     bool success = 3;
     AssignRolePermission data = 4;
-    string data_time_stamp =5;
+    string data_time_stamp = 5;
 }
 
 message CreateUserRequest {
