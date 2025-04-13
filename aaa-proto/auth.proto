@@ -19,11 +19,13 @@ message PermissionResponse {
     string resource = 6; 
 }
 
-message UserRoleResponse {
-    repeated string roles = 1;
-    repeated PermissionResponse permissions = 2;
+message RolePermissions {
+  repeated PermissionResponse permissions = 1;
 }
 
+message RolePermissionMap {
+  map<string, RolePermissions> role_permissions = 1;
+}
 message AssignRolePermission {
     string id = 1;
     string username = 2;
@@ -31,7 +33,7 @@ message AssignRolePermission {
     bool is_validated = 4;
     string created_at = 5;
     string updated_at = 6;
-    UserRoleResponse usage_right = 21;
+    RolePermissionMap role_permissions = 21;
 
 }
 message User {
@@ -55,7 +57,7 @@ message User {
     uint64 mobile_number = 18;
     string country_code = 19;
     Address address = 20;
-    UserRoleResponse usage_right = 21;
+    RolePermissionMap role_permissions = 21;
 }
 
 message Address {
