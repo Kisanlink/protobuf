@@ -238,13 +238,11 @@ message AssignRoleToUserRequest {
 
 message AssignRoleToUserResponse {
     int32 status_code = 1;
-    string message = 2;
-    bool success = 3;
+    bool success = 2;
+    string message = 3;
     AssignRolePermission data = 4;
-    string data_time_stamp =5;
-
+    string data_time_stamp = 5;
 }
-
 message CheckAadhaarExistRequest {
     string aadhaar_number= 1;
 }
