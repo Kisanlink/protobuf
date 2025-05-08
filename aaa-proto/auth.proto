@@ -3,6 +3,7 @@ syntax = "proto3";
 package pb;
 
 option go_package = "github.com/kisanlink/protobuf/pb";
+import "google/protobuf/any.proto";
 
 message UserRole {
     string id = 1;
@@ -248,12 +249,19 @@ message CheckAadhaarExistResponse {
     bool  isExist= 3;
 }
 
-
+message StandardResponse {
+  int32 status_code = 1;
+  bool success = 2;
+  string message = 3;
+  google.protobuf.Any data = 4;
+  repeated string errors = 5;
+  string timestamp = 6;
+}
 
 service UserService {
     rpc RegisterUser(CreateUserRequest) returns (CreateUserResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
-    rpc GetUser(GetUserRequest) returns (GetUserResponse);
+    rpc GetUser(GetUserRequest) returns (StandardResponse);
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
     rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
