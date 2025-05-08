@@ -85,6 +85,7 @@ message LoginResponse {
     bool success = 3;
     AssignRolePermission data = 4;
     string data_time_stamp = 5;
+    repeated string errors = 6;
 }
 
 message CreateUserRequest {
@@ -115,6 +116,8 @@ message MinimalUser {
     string created_at = 7;
     string updated_at = 8;
     AadhaarOTPResponse otp_response = 9;
+    repeated string errors = 10;
+
 
 }
 
@@ -124,6 +127,8 @@ message CreateUserResponse {
     bool success = 3;
     MinimalUser data = 4;
     string data_time_stamp =5;
+    repeated string errors = 6;
+
 }
 
 message GetUserRequest {}
@@ -134,6 +139,8 @@ message GetUserResponse {
     bool success = 3;
     repeated User data = 4;
     string data_time_stamp =5;
+    repeated string errors = 6;
+
 
 }
 
@@ -160,6 +167,8 @@ message UpdateUserResponse {
     bool success = 3;
     User data = 4;
     string data_time_stamp =5;
+    repeated string errors = 6;
+
 }
 
 message DeleteUserRequest {
@@ -171,6 +180,8 @@ message DeleteUserResponse {
     string message = 2;
     bool success = 3;
     string data_time_stamp = 4;
+    repeated string errors = 6;
+
 }
 
 message GetUserByIdRequest {
@@ -183,6 +194,8 @@ message GetUserByIdResponse {
     bool success = 3;
     User data = 4;
     string data_time_stamp =5;
+     repeated string errors = 6;
+
 }
 
 message ValidateUserRequest {
@@ -209,6 +222,8 @@ message ValidateUserResponse {
     bool success = 3;
     User data = 4;
     string data_time_stamp =5;
+    repeated string errors = 6;
+
 }
 
 message CheckPermissionRequest {
@@ -225,6 +240,8 @@ message CheckPermissionResponse {
     map<string, bool> permissions = 4;
     map<string, bool> actions = 5;
     string data_time_stamp = 6;
+    repeated string errors = 7;
+
 
 }
 
@@ -239,6 +256,8 @@ message AssignRoleToUserResponse {
     string message = 3;
     AssignRolePermission data = 4;
     string data_time_stamp = 5;
+    repeated string errors = 6;
+
 }
 message CheckAadhaarExistRequest {
     string aadhaar_number= 1;
@@ -247,6 +266,8 @@ message CheckAadhaarExistResponse {
     int32 status_code = 1;
     string message = 2;
     bool  isExist= 3;
+    repeated string errors = 6;
+
 }
 
 message StandardResponse {
@@ -261,7 +282,7 @@ message StandardResponse {
 service UserService {
     rpc RegisterUser(CreateUserRequest) returns (CreateUserResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
-    rpc GetUser(GetUserRequest) returns (StandardResponse);
+    rpc GetUser(GetUserRequest) returns (GetUserResponse);
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
     rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);

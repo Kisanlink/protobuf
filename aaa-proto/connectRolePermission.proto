@@ -98,6 +98,7 @@ message CreateConnRolePermissionResponse {
     bool success = 3;
     ConnRolePermissionResponse data = 4;
     string data_time_stamp =5;
+    repeated string errors =6;
 
 }
 
@@ -109,6 +110,8 @@ message GetConnRolePermissionallResponse {
     bool success = 3;
     repeated ConnRolePermissionResponse data = 4;
     string data_time_stamp =5;
+    repeated string errors =6;
+
 
 }
 
@@ -122,6 +125,8 @@ message GetConnRolePermissionByIdResponse {
     bool success = 3;
     ConnRolePermissionResponse data = 4;
     string data_time_stamp =5;
+    repeated string errors =6;
+
 
 }
 
@@ -137,6 +142,8 @@ message UpdateConnRolePermissionResponse {
     bool success = 3;
     ConnRolePermissionResponse data = 4;
     string data_time_stamp =5;
+    repeated string errors =6;
+
 
 }
 
@@ -149,6 +156,8 @@ message DeleteConnRolePermissionResponse {
     string message = 2;
     bool success = 3;
     string data_time_stamp = 4;
+    repeated string errors =5;
+
 
 }
 
@@ -162,6 +171,8 @@ message GetRolePermissionByRoleNameResponse {
     bool success = 3;
     ConnRolePermissionResponse data = 4;
     string data_time_stamp =5;
+    repeated string errors =6;
+
 
 }
 

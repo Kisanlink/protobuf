@@ -51,6 +51,8 @@ message GetAllRolesResponse {
     repeated Role data = 3; 
     bool success = 4;  
     string data_time_stamp =5;
+     repeated string errors =6;
+
     
 }
 
@@ -64,6 +66,8 @@ message GetRoleByIdResponse {
     Role data = 3;         
     bool success = 4;
     string data_time_stamp =5;
+        repeated string errors =6;
+
       
 }
 
@@ -80,6 +84,8 @@ message UpdateRoleResponse {
     Role data = 3;          
     bool success = 4; 
     string data_time_stamp = 5;
+        repeated string errors =6;
+
      
 }
 
@@ -92,6 +98,8 @@ message DeleteRoleResponse {
     string message = 2;    
     bool success = 3; 
     string data_time_stamp = 4;
+        repeated string errors =5;
+
      
 }
 
@@ -109,6 +117,8 @@ message CreatePermissionResponse {
     Permission data = 3; 
     bool success = 4;  
     string data_time_stamp =5;
+        repeated string errors =6;
+
     
 }
 
@@ -120,6 +130,8 @@ message GetAllPermissionsResponse {
     repeated Permission data = 3; 
     bool success = 4;   
     string data_time_stamp =5;
+        repeated string errors =6;
+
    
 }
 
@@ -133,6 +145,8 @@ message GetPermissionByIdResponse {
     Permission data = 3; 
     bool success = 4;
     string data_time_stamp =5;
+        repeated string errors =6;
+
       
 }
 
@@ -151,6 +165,8 @@ message UpdatePermissionResponse {
     Permission data = 3; 
     bool success = 4; 
     string data_time_stamp =5;
+        repeated string errors =6;
+
      
 }
 
@@ -163,6 +179,8 @@ message DeletePermissionResponse {
     string message = 2;   
     bool success = 3;
     string data_time_stamp =4;
+        repeated string errors =5;
+
       
 }
 
