@@ -186,6 +186,8 @@ message DeleteUserResponse {
 
 message GetUserByIdRequest {
     string id = 1;
+    string name=2;
+    uint64 mobile_number=3;
 }
 
 message GetUserByIdResponse {
