@@ -12,18 +12,17 @@ message UserRole {
     string created_at = 4;
     string updated_at = 5;
 }
-message PermissionResponse {
-    string name = 1;
-    string description = 2;
-    string action = 3;
-    string source = 4;
-    string resource = 5;
+
+message Permission {
+    string resource = 1;
+    repeated string actions = 2;
 }
 
-message RolePermissions {
-  string role_name = 1;
-  repeated PermissionResponse permissions = 2;
+message Role {
+    string role_name = 1;
+    repeated Permission permissions = 2;
 }
+
 message AssignRolePermission {
     string id = 1;
     string username = 2;
@@ -31,8 +30,9 @@ message AssignRolePermission {
     bool is_validated = 4;
     string created_at = 5;
     string updated_at = 6;
-  repeated RolePermissions role_permissions = 7; // Changed from map to repeated
+    repeated Role roles = 7;
 }
+
 message User {
     string id = 1;
     string username = 2;
@@ -40,21 +40,20 @@ message User {
     bool is_validated = 4;
     string created_at = 5;
     string updated_at = 6;
-    // repeated UserRole user_roles = 7;
-    string aadhaar_number = 8;
-    string status = 9;
-    string name = 10;
-    string care_of = 11;
-    string date_of_birth = 12;
-    string photo = 13;
-    string email_hash = 14;
-    string share_code = 15;
-    string year_of_birth = 16;
-    string message = 17;
-    uint64 mobile_number = 18;
-    string country_code = 19;
-    Address address = 20;
-  repeated RolePermissions role_permissions = 21; // Changed from map to repeated
+    string aadhaar_number = 7;
+    string status = 8;
+    string name = 9;
+    string care_of = 10;
+    string date_of_birth = 11;
+    string photo = 12;
+    string email_hash = 13;
+    string share_code = 14;
+    string year_of_birth = 15;
+    string message = 16;
+    uint64 mobile_number = 17;
+    string country_code = 18;
+    Address address = 19;
+    repeated Role roles = 20;
 }
 
 message Address {
@@ -93,7 +92,7 @@ message CreateUserRequest {
     string password = 2;
     string aadhaar_number = 3;
     string country_code = 4;
-    uint64 mobile_number = 5; 
+    uint64 mobile_number = 5;
 }
 
 message AadhaarOTPResponse {
@@ -112,13 +111,12 @@ message MinimalUser {
     string password = 3;
     bool is_validated = 4;
     string country_code = 5;
-    uint64 mobile_number = 6; 
+    uint64 mobile_number = 6;
     string created_at = 7;
     string updated_at = 8;
     AadhaarOTPResponse otp_response = 9;
-    repeated string errors = 10;
-
-
+    repeated Role roles = 10;
+    repeated string errors = 11;
 }
 
 message CreateUserResponse {
@@ -126,9 +124,8 @@ message CreateUserResponse {
     string message = 2;
     bool success = 3;
     MinimalUser data = 4;
-    string data_time_stamp =5;
+    string data_time_stamp = 5;
     repeated string errors = 6;
-
 }
 
 message GetUserRequest {}
@@ -138,10 +135,8 @@ message GetUserResponse {
     string message = 2;
     bool success = 3;
     repeated User data = 4;
-    string data_time_stamp =5;
+    string data_time_stamp = 5;
     repeated string errors = 6;
-
-
 }
 
 message UpdateUserRequest {
@@ -166,9 +161,8 @@ message UpdateUserResponse {
     string message = 2;
     bool success = 3;
     User data = 4;
-    string data_time_stamp =5;
+    string data_time_stamp = 5;
     repeated string errors = 6;
-
 }
 
 message DeleteUserRequest {
@@ -180,14 +174,13 @@ message DeleteUserResponse {
     string message = 2;
     bool success = 3;
     string data_time_stamp = 4;
-    repeated string errors = 6;
-
+    repeated string errors = 5;
 }
 
 message GetUserByIdRequest {
     string id = 1;
-    string name=2;
-    uint64 mobile_number=3;
+    string name = 2;
+    uint64 mobile_number = 3;
 }
 
 message GetUserByIdResponse {
@@ -195,9 +188,8 @@ message GetUserByIdResponse {
     string message = 2;
     bool success = 3;
     User data = 4;
-    string data_time_stamp =5;
-     repeated string errors = 6;
-
+    string data_time_stamp = 5;
+    repeated string errors = 6;
 }
 
 message ValidateUserRequest {
@@ -223,28 +215,8 @@ message ValidateUserResponse {
     string message = 2;
     bool success = 3;
     User data = 4;
-    string data_time_stamp =5;
+    string data_time_stamp = 5;
     repeated string errors = 6;
-
-}
-
-message CheckPermissionRequest {
-    string principal = 1;
-    string source = 2;
-    repeated string actions = 3;
-}
-
-message CheckPermissionResponse {
-    int32 status_code = 1;
-    string message = 2;
-    bool success = 3;
-    // map<string, bool> roles = 4;
-    map<string, bool> permissions = 4;
-    map<string, bool> actions = 5;
-    string data_time_stamp = 6;
-    repeated string errors = 7;
-
-
 }
 
 message AssignRoleToUserRequest {
@@ -259,26 +231,28 @@ message AssignRoleToUserResponse {
     AssignRolePermission data = 4;
     string data_time_stamp = 5;
     repeated string errors = 6;
+}
 
+message DeleteAssignRoleToUserRequest {
+    string userId = 1;
+    string role = 2;
 }
-message CheckAadhaarExistRequest {
-    string aadhaar_number= 1;
-}
-message CheckAadhaarExistResponse {
+
+message DeleteAssignRoleToUserResponse {
     int32 status_code = 1;
-    string message = 2;
-    bool  isExist= 3;
-    repeated string errors = 6;
-
+    bool success = 2;
+    string message = 3;
+    string data_time_stamp = 4;
+    repeated string errors = 5;
 }
 
 message StandardResponse {
-  int32 status_code = 1;
-  bool success = 2;
-  string message = 3;
-  google.protobuf.Any data = 4;
-  repeated string errors = 5;
-  string timestamp = 6;
+    int32 status_code = 1;
+    bool success = 2;
+    string message = 3;
+    google.protobuf.Any data = 4;
+    repeated string errors = 5;
+    string timestamp = 6;
 }
 
 service UserService {
@@ -288,8 +262,7 @@ service UserService {
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
     rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
-    rpc CheckUserPermission(CheckPermissionRequest) returns (CheckPermissionResponse);
     rpc ValidateUser(ValidateUserRequest) returns (ValidateUserResponse);
     rpc AssignRole(AssignRoleToUserRequest) returns (AssignRoleToUserResponse);
-    rpc CheckAadhaarExist(CheckAadhaarExistRequest) returns (CheckAadhaarExistResponse);
+    rpc DeleteAssignRole(DeleteAssignRoleToUserRequest) returns (DeleteAssignRoleToUserResponse);
 }

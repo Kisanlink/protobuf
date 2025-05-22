@@ -19,16 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_RegisterUser_FullMethodName        = "/pb.UserService/RegisterUser"
-	UserService_Login_FullMethodName               = "/pb.UserService/Login"
-	UserService_GetUser_FullMethodName             = "/pb.UserService/GetUser"
-	UserService_UpdateUser_FullMethodName          = "/pb.UserService/UpdateUser"
-	UserService_DeleteUser_FullMethodName          = "/pb.UserService/DeleteUser"
-	UserService_GetUserById_FullMethodName         = "/pb.UserService/GetUserById"
-	UserService_CheckUserPermission_FullMethodName = "/pb.UserService/CheckUserPermission"
-	UserService_ValidateUser_FullMethodName        = "/pb.UserService/ValidateUser"
-	UserService_AssignRole_FullMethodName          = "/pb.UserService/AssignRole"
-	UserService_CheckAadhaarExist_FullMethodName   = "/pb.UserService/CheckAadhaarExist"
+	UserService_RegisterUser_FullMethodName     = "/pb.UserService/RegisterUser"
+	UserService_Login_FullMethodName            = "/pb.UserService/Login"
+	UserService_GetUser_FullMethodName          = "/pb.UserService/GetUser"
+	UserService_UpdateUser_FullMethodName       = "/pb.UserService/UpdateUser"
+	UserService_DeleteUser_FullMethodName       = "/pb.UserService/DeleteUser"
+	UserService_GetUserById_FullMethodName      = "/pb.UserService/GetUserById"
+	UserService_ValidateUser_FullMethodName     = "/pb.UserService/ValidateUser"
+	UserService_AssignRole_FullMethodName       = "/pb.UserService/AssignRole"
+	UserService_DeleteAssignRole_FullMethodName = "/pb.UserService/DeleteAssignRole"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -41,10 +40,9 @@ type UserServiceClient interface {
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
 	GetUserById(ctx context.Context, in *GetUserByIdRequest, opts ...grpc.CallOption) (*GetUserByIdResponse, error)
-	CheckUserPermission(ctx context.Context, in *CheckPermissionRequest, opts ...grpc.CallOption) (*CheckPermissionResponse, error)
 	ValidateUser(ctx context.Context, in *ValidateUserRequest, opts ...grpc.CallOption) (*ValidateUserResponse, error)
 	AssignRole(ctx context.Context, in *AssignRoleToUserRequest, opts ...grpc.CallOption) (*AssignRoleToUserResponse, error)
-	CheckAadhaarExist(ctx context.Context, in *CheckAadhaarExistRequest, opts ...grpc.CallOption) (*CheckAadhaarExistResponse, error)
+	DeleteAssignRole(ctx context.Context, in *DeleteAssignRoleToUserRequest, opts ...grpc.CallOption) (*DeleteAssignRoleToUserResponse, error)
 }
 
 type userServiceClient struct {
@@ -115,16 +113,6 @@ func (c *userServiceClient) GetUserById(ctx context.Context, in *GetUserByIdRequ
 	return out, nil
 }
 
-func (c *userServiceClient) CheckUserPermission(ctx context.Context, in *CheckPermissionRequest, opts ...grpc.CallOption) (*CheckPermissionResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CheckPermissionResponse)
-	err := c.cc.Invoke(ctx, UserService_CheckUserPermission_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *userServiceClient) ValidateUser(ctx context.Context, in *ValidateUserRequest, opts ...grpc.CallOption) (*ValidateUserResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ValidateUserResponse)
@@ -145,10 +133,10 @@ func (c *userServiceClient) AssignRole(ctx context.Context, in *AssignRoleToUser
 	return out, nil
 }
 
-func (c *userServiceClient) CheckAadhaarExist(ctx context.Context, in *CheckAadhaarExistRequest, opts ...grpc.CallOption) (*CheckAadhaarExistResponse, error) {
+func (c *userServiceClient) DeleteAssignRole(ctx context.Context, in *DeleteAssignRoleToUserRequest, opts ...grpc.CallOption) (*DeleteAssignRoleToUserResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CheckAadhaarExistResponse)
-	err := c.cc.Invoke(ctx, UserService_CheckAadhaarExist_FullMethodName, in, out, cOpts...)
+	out := new(DeleteAssignRoleToUserResponse)
+	err := c.cc.Invoke(ctx, UserService_DeleteAssignRole_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -165,10 +153,9 @@ type UserServiceServer interface {
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
 	GetUserById(context.Context, *GetUserByIdRequest) (*GetUserByIdResponse, error)
-	CheckUserPermission(context.Context, *CheckPermissionRequest) (*CheckPermissionResponse, error)
 	ValidateUser(context.Context, *ValidateUserRequest) (*ValidateUserResponse, error)
 	AssignRole(context.Context, *AssignRoleToUserRequest) (*AssignRoleToUserResponse, error)
-	CheckAadhaarExist(context.Context, *CheckAadhaarExistRequest) (*CheckAadhaarExistResponse, error)
+	DeleteAssignRole(context.Context, *DeleteAssignRoleToUserRequest) (*DeleteAssignRoleToUserResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -197,17 +184,14 @@ func (UnimplementedUserServiceServer) DeleteUser(context.Context, *DeleteUserReq
 func (UnimplementedUserServiceServer) GetUserById(context.Context, *GetUserByIdRequest) (*GetUserByIdResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserById not implemented")
 }
-func (UnimplementedUserServiceServer) CheckUserPermission(context.Context, *CheckPermissionRequest) (*CheckPermissionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CheckUserPermission not implemented")
-}
 func (UnimplementedUserServiceServer) ValidateUser(context.Context, *ValidateUserRequest) (*ValidateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateUser not implemented")
 }
 func (UnimplementedUserServiceServer) AssignRole(context.Context, *AssignRoleToUserRequest) (*AssignRoleToUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AssignRole not implemented")
 }
-func (UnimplementedUserServiceServer) CheckAadhaarExist(context.Context, *CheckAadhaarExistRequest) (*CheckAadhaarExistResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CheckAadhaarExist not implemented")
+func (UnimplementedUserServiceServer) DeleteAssignRole(context.Context, *DeleteAssignRoleToUserRequest) (*DeleteAssignRoleToUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteAssignRole not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -338,24 +322,6 @@ func _UserService_GetUserById_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_CheckUserPermission_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CheckPermissionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).CheckUserPermission(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_CheckUserPermission_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).CheckUserPermission(ctx, req.(*CheckPermissionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _UserService_ValidateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ValidateUserRequest)
 	if err := dec(in); err != nil {
@@ -392,20 +358,20 @@ func _UserService_AssignRole_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_CheckAadhaarExist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CheckAadhaarExistRequest)
+func _UserService_DeleteAssignRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteAssignRoleToUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).CheckAadhaarExist(ctx, in)
+		return srv.(UserServiceServer).DeleteAssignRole(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_CheckAadhaarExist_FullMethodName,
+		FullMethod: UserService_DeleteAssignRole_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).CheckAadhaarExist(ctx, req.(*CheckAadhaarExistRequest))
+		return srv.(UserServiceServer).DeleteAssignRole(ctx, req.(*DeleteAssignRoleToUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -442,10 +408,6 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_GetUserById_Handler,
 		},
 		{
-			MethodName: "CheckUserPermission",
-			Handler:    _UserService_CheckUserPermission_Handler,
-		},
-		{
 			MethodName: "ValidateUser",
 			Handler:    _UserService_ValidateUser_Handler,
 		},
@@ -454,8 +416,8 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_AssignRole_Handler,
 		},
 		{
-			MethodName: "CheckAadhaarExist",
-			Handler:    _UserService_CheckAadhaarExist_Handler,
+			MethodName: "DeleteAssignRole",
+			Handler:    _UserService_DeleteAssignRole_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
