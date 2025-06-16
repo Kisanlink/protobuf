@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/kisanlink/protobuf/pb";
+
+message CreateSmsRequest {
+  repeated string mobile_numbers = 1;
+  string message = 2;
+}
+
+message SmsContent {
+  string error = 1;
+  string message_id = 2;
+  string phone_number = 3;
+}
+
+message CreateSmsResponse {
+  int32 status_code = 1;
+  string message = 2;
+  bool success = 3;
+  repeated SmsContent data = 4;
+  string data_time_stamp = 5;
+}
+
+message CreateEmailRequest {
+  string from = 1;
+  string subject = 2;
+  string html_body = 3;
+  repeated string to = 4;
+}
+
+message EmailContent {
+  string error = 1;
+  string message_id = 2;
+  string email = 3;
+}
+
+message CreateEmailResponse {
+  int32 status_code = 1;
+  string message = 2;
+  bool success = 3;
+  repeated EmailContent data = 4;
+  string data_time_stamp = 5;
+}
+
+service NotificationService {
+  rpc SendSms(CreateSmsRequest) returns (CreateSmsResponse);
+  rpc SendEmail(CreateEmailRequest) returns (CreateEmailResponse);
+}
