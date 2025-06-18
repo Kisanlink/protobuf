@@ -19,15 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_RegisterUser_FullMethodName     = "/pb.UserService/RegisterUser"
-	UserService_Login_FullMethodName            = "/pb.UserService/Login"
-	UserService_GetUser_FullMethodName          = "/pb.UserService/GetUser"
-	UserService_UpdateUser_FullMethodName       = "/pb.UserService/UpdateUser"
-	UserService_DeleteUser_FullMethodName       = "/pb.UserService/DeleteUser"
-	UserService_GetUserById_FullMethodName      = "/pb.UserService/GetUserById"
-	UserService_ValidateUser_FullMethodName     = "/pb.UserService/ValidateUser"
-	UserService_AssignRole_FullMethodName       = "/pb.UserService/AssignRole"
-	UserService_DeleteAssignRole_FullMethodName = "/pb.UserService/DeleteAssignRole"
+	UserService_RegisterUser_FullMethodName          = "/pb.UserService/RegisterUser"
+	UserService_Login_FullMethodName                 = "/pb.UserService/Login"
+	UserService_GetUser_FullMethodName               = "/pb.UserService/GetUser"
+	UserService_GetUserByMobileNumber_FullMethodName = "/pb.UserService/GetUserByMobileNumber"
+	UserService_UpdateUser_FullMethodName            = "/pb.UserService/UpdateUser"
+	UserService_DeleteUser_FullMethodName            = "/pb.UserService/DeleteUser"
+	UserService_GetUserById_FullMethodName           = "/pb.UserService/GetUserById"
+	UserService_ValidateUser_FullMethodName          = "/pb.UserService/ValidateUser"
+	UserService_AssignRole_FullMethodName            = "/pb.UserService/AssignRole"
+	UserService_DeleteAssignRole_FullMethodName      = "/pb.UserService/DeleteAssignRole"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -37,6 +38,7 @@ type UserServiceClient interface {
 	RegisterUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
+	GetUserByMobileNumber(ctx context.Context, in *GetUserByMobileNumberRequest, opts ...grpc.CallOption) (*GetUserByMobileNumberResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	DeleteUser(ctx context.Context, in *DeleteUserRequest, opts ...grpc.CallOption) (*DeleteUserResponse, error)
 	GetUserById(ctx context.Context, in *GetUserByIdRequest, opts ...grpc.CallOption) (*GetUserByIdResponse, error)
@@ -77,6 +79,16 @@ func (c *userServiceClient) GetUser(ctx context.Context, in *GetUserRequest, opt
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetUserResponse)
 	err := c.cc.Invoke(ctx, UserService_GetUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) GetUserByMobileNumber(ctx context.Context, in *GetUserByMobileNumberRequest, opts ...grpc.CallOption) (*GetUserByMobileNumberResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserByMobileNumberResponse)
+	err := c.cc.Invoke(ctx, UserService_GetUserByMobileNumber_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -150,6 +162,7 @@ type UserServiceServer interface {
 	RegisterUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	Login(context.Context, *LoginRequest) (*LoginResponse, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
+	GetUserByMobileNumber(context.Context, *GetUserByMobileNumberRequest) (*GetUserByMobileNumberResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	DeleteUser(context.Context, *DeleteUserRequest) (*DeleteUserResponse, error)
 	GetUserById(context.Context, *GetUserByIdRequest) (*GetUserByIdResponse, error)
@@ -174,6 +187,9 @@ func (UnimplementedUserServiceServer) Login(context.Context, *LoginRequest) (*Lo
 }
 func (UnimplementedUserServiceServer) GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserByMobileNumber(context.Context, *GetUserByMobileNumberRequest) (*GetUserByMobileNumberResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByMobileNumber not implemented")
 }
 func (UnimplementedUserServiceServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
@@ -264,6 +280,24 @@ func _UserService_GetUser_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).GetUser(ctx, req.(*GetUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_GetUserByMobileNumber_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByMobileNumberRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserByMobileNumber(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetUserByMobileNumber_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserByMobileNumber(ctx, req.(*GetUserByMobileNumberRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -394,6 +428,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUser",
 			Handler:    _UserService_GetUser_Handler,
+		},
+		{
+			MethodName: "GetUserByMobileNumber",
+			Handler:    _UserService_GetUserByMobileNumber_Handler,
 		},
 		{
 			MethodName: "UpdateUser",

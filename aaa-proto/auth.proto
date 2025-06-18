@@ -247,19 +247,26 @@ message DeleteAssignRoleToUserResponse {
     repeated string errors = 5;
 }
 
-message StandardResponse {
-    int32 status_code = 1;
-    bool success = 2;
-    string message = 3;
-    google.protobuf.Any data = 4;
-    repeated string errors = 5;
-    string timestamp = 6;
+
+message GetUserByMobileNumberRequest {
+    uint64 mobile_number = 1;
 }
+
+message GetUserByMobileNumberResponse {
+    int32 status_code = 1;
+    string message = 2;
+    bool success = 3;
+    User data = 4;
+    string data_time_stamp = 5;
+    repeated string errors = 6;
+}
+
 
 service UserService {
     rpc RegisterUser(CreateUserRequest) returns (CreateUserResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
+    rpc GetUserByMobileNumber(GetUserByMobileNumberRequest) returns (GetUserByMobileNumberResponse);
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
     rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
