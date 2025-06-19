@@ -29,6 +29,8 @@ const (
 	UserService_ValidateUser_FullMethodName          = "/pb.UserService/ValidateUser"
 	UserService_AssignRole_FullMethodName            = "/pb.UserService/AssignRole"
 	UserService_DeleteAssignRole_FullMethodName      = "/pb.UserService/DeleteAssignRole"
+	UserService_CreateRelationship_FullMethodName    = "/pb.UserService/CreateRelationship"
+	UserService_DeleteRelationship_FullMethodName    = "/pb.UserService/DeleteRelationship"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -45,6 +47,8 @@ type UserServiceClient interface {
 	ValidateUser(ctx context.Context, in *ValidateUserRequest, opts ...grpc.CallOption) (*ValidateUserResponse, error)
 	AssignRole(ctx context.Context, in *AssignRoleToUserRequest, opts ...grpc.CallOption) (*AssignRoleToUserResponse, error)
 	DeleteAssignRole(ctx context.Context, in *DeleteAssignRoleToUserRequest, opts ...grpc.CallOption) (*DeleteAssignRoleToUserResponse, error)
+	CreateRelationship(ctx context.Context, in *CreateRelationshipRequest, opts ...grpc.CallOption) (*CreateRelationshipResponse, error)
+	DeleteRelationship(ctx context.Context, in *DeleteRelationshipRequest, opts ...grpc.CallOption) (*DeleteRelationshipResponse, error)
 }
 
 type userServiceClient struct {
@@ -155,6 +159,26 @@ func (c *userServiceClient) DeleteAssignRole(ctx context.Context, in *DeleteAssi
 	return out, nil
 }
 
+func (c *userServiceClient) CreateRelationship(ctx context.Context, in *CreateRelationshipRequest, opts ...grpc.CallOption) (*CreateRelationshipResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateRelationshipResponse)
+	err := c.cc.Invoke(ctx, UserService_CreateRelationship_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) DeleteRelationship(ctx context.Context, in *DeleteRelationshipRequest, opts ...grpc.CallOption) (*DeleteRelationshipResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteRelationshipResponse)
+	err := c.cc.Invoke(ctx, UserService_DeleteRelationship_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -169,6 +193,8 @@ type UserServiceServer interface {
 	ValidateUser(context.Context, *ValidateUserRequest) (*ValidateUserResponse, error)
 	AssignRole(context.Context, *AssignRoleToUserRequest) (*AssignRoleToUserResponse, error)
 	DeleteAssignRole(context.Context, *DeleteAssignRoleToUserRequest) (*DeleteAssignRoleToUserResponse, error)
+	CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error)
+	DeleteRelationship(context.Context, *DeleteRelationshipRequest) (*DeleteRelationshipResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -208,6 +234,12 @@ func (UnimplementedUserServiceServer) AssignRole(context.Context, *AssignRoleToU
 }
 func (UnimplementedUserServiceServer) DeleteAssignRole(context.Context, *DeleteAssignRoleToUserRequest) (*DeleteAssignRoleToUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteAssignRole not implemented")
+}
+func (UnimplementedUserServiceServer) CreateRelationship(context.Context, *CreateRelationshipRequest) (*CreateRelationshipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRelationship not implemented")
+}
+func (UnimplementedUserServiceServer) DeleteRelationship(context.Context, *DeleteRelationshipRequest) (*DeleteRelationshipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRelationship not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -410,6 +442,42 @@ func _UserService_DeleteAssignRole_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_CreateRelationship_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRelationshipRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).CreateRelationship(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_CreateRelationship_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).CreateRelationship(ctx, req.(*CreateRelationshipRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_DeleteRelationship_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRelationshipRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).DeleteRelationship(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_DeleteRelationship_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).DeleteRelationship(ctx, req.(*DeleteRelationshipRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -456,6 +524,14 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteAssignRole",
 			Handler:    _UserService_DeleteAssignRole_Handler,
+		},
+		{
+			MethodName: "CreateRelationship",
+			Handler:    _UserService_CreateRelationship_Handler,
+		},
+		{
+			MethodName: "DeleteRelationship",
+			Handler:    _UserService_DeleteRelationship_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

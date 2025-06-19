@@ -261,6 +261,37 @@ message GetUserByMobileNumberResponse {
     repeated string errors = 6;
 }
 
+message CreateRelationshipRequest {
+    string username = 1;
+    string resource_id = 2;
+    string resource_type = 3;
+    string realtion = 4;
+}
+
+message CreateRelationshipResponse {
+    int32 status_code = 1;
+    string message = 2;
+    bool success = 3;
+    string data = 4;
+    string data_time_stamp = 5;
+    repeated string errors = 6;
+}
+
+message DeleteRelationshipRequest {
+    string username = 1;
+    string resource_id = 2;
+    string resource = 3;
+    string relation = 4;
+}
+
+message DeleteRelationshipResponse {
+    int32 status_code = 1;
+    string message = 2;
+    bool success = 3;
+    string data = 4;
+    string data_time_stamp = 5;
+    repeated string errors = 6;
+}
 
 service UserService {
     rpc RegisterUser(CreateUserRequest) returns (CreateUserResponse);
@@ -273,4 +304,6 @@ service UserService {
     rpc ValidateUser(ValidateUserRequest) returns (ValidateUserResponse);
     rpc AssignRole(AssignRoleToUserRequest) returns (AssignRoleToUserResponse);
     rpc DeleteAssignRole(DeleteAssignRoleToUserRequest) returns (DeleteAssignRoleToUserResponse);
+    rpc CreateRelationship(CreateRelationshipRequest) returns (CreateRelationshipResponse);
+    rpc DeleteRelationship(DeleteRelationshipRequest) returns (DeleteRelationshipResponse);
 }
