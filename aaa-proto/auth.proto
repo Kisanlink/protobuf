@@ -265,7 +265,7 @@ message CreateRelationshipRequest {
     string username = 1;
     string resource_id = 2;
     string resource_type = 3;
-    string realtion = 4;
+    string relation = 4;
 }
 
 message CreateRelationshipResponse {
